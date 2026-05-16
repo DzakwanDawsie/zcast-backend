@@ -6,13 +6,13 @@ services:
     container_name: zcast-api
     restart: unless-stopped
     ports:
-      - "${PORT:-3001}:3001"
+      - "${PORT:-8424}:8424"
     env_file:
       - ../.env
     volumes:
       - zcast-public:/app/public
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8424/"]
       interval: 30s
       timeout: 5s
       retries: 3
