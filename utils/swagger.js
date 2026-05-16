@@ -152,7 +152,7 @@ const options = {
         get: {
           tags: ['Music'],
           summary: 'Search YouTube Music',
-          description: 'Search for songs, videos, albums, artists, and playlists on YouTube Music. Requires YouTube cookie authentication.',
+          description: 'Search YouTube Music. Default search type is songs. Requires YouTube cookie authentication.',
           parameters: [
             {
               name: 'q',
@@ -165,10 +165,11 @@ const options = {
               name: 'type',
               in: 'query',
               required: false,
-              description: 'Filter by type',
+              description: 'Filter by type (default: song)',
               schema: {
                 type: 'string',
-                enum: ['all', 'song', 'video', 'album', 'playlist', 'artist']
+                enum: ['all', 'song', 'video', 'album', 'playlist', 'artist'],
+                default: 'song'
               }
             }
           ],
@@ -185,26 +186,7 @@ const options = {
                       data: {
                         type: 'object',
                         properties: {
-                          query: { type: 'string' },
-                          correctedQuery: { type: 'string' },
-                          didYouMean: { type: 'string' },
-                          songs: {
-                            type: 'array',
-                            items: { $ref: '#/components/schemas/SearchItem' }
-                          },
-                          videos: {
-                            type: 'array',
-                            items: { $ref: '#/components/schemas/SearchItem' }
-                          },
-                          albums: {
-                            type: 'array',
-                            items: { $ref: '#/components/schemas/SearchItem' }
-                          },
-                          artists: {
-                            type: 'array',
-                            items: { $ref: '#/components/schemas/SearchItem' }
-                          },
-                          playlists: {
+                          items: {
                             type: 'array',
                             items: { $ref: '#/components/schemas/SearchItem' }
                           }
@@ -281,9 +263,14 @@ const options = {
                   schema: {
                     type: 'object',
                     properties: {
-                      success: { type: 'boolean', example: true },
-                      message: { type: 'string', example: 'Success' },
-                      data: { type: 'string', description: 'Direct audio stream URL' }
+                      success: { type: 'boolean' },
+                      message: { type: 'string' },
+                      data: {
+                        type: 'object',
+                        properties: {
+                          url: { type: 'string', description: 'Direct audio stream URL' }
+                        }
+                      }
                     }
                   }
                 }

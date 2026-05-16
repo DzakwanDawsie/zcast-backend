@@ -15,7 +15,7 @@ exports.feeds = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
-    const { q, type } = req.query;
+    const { q, type = 'song' } = req.query;
 
     if (!q) {
       return response.failed(res, 'Query parameter "q" is required');
@@ -27,7 +27,7 @@ exports.search = async (req, res) => {
     }
 
     const result = await youtubeMusic.searchMusic(q, type);
-    response.success(res, result);
+    response.success(res, { items: result.items });
   } catch (error) {
     console.error('[MusicController] search error:', error);
     response.failed(res, error.message || 'Failed to search music');

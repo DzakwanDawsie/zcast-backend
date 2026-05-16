@@ -198,16 +198,12 @@ exports.searchMusic = async function (query, type) {
     });
   };
 
-  return {
-    query: query,
-    correctedQuery: search.showing_results_for?.corrected_query || null,
-    didYouMean: search.did_you_mean?.corrected_query || null,
-    songs: normalizeItems(search.songs),
-    videos: normalizeItems(search.videos),
-    albums: normalizeItems(search.albums),
-    artists: normalizeItems(search.artists),
-    playlists: normalizeItems(search.playlists)
-  };
+  const items = [];
+  for (const arr of [search.songs, search.videos, search.albums, search.artists, search.playlists]) {
+    if (arr) items.push(...normalizeItems(arr));
+  }
+
+  return { items };
 };
 
 function normalizeMusicItem(item) {
