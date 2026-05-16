@@ -1,0 +1,4 @@
+node_modules/
+public/*
+.ytmusic-cache/
+oauth.json

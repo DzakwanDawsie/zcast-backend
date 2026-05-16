@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.ytmusic-cache
+oauth.json
+.env
+deploy
+*.md
+.DS_Store
