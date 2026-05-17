@@ -19,6 +19,7 @@ module.exports = function (app) {
   app.get('/music/search', MusicController.search);
   app.get('/music/:videoId/relateds', MusicController.relateds);
   app.get('/music/:videoId/stream-url', MusicController.streamUrl);
+  app.get('/music/:videoId/stream', MusicController.streamAudio);
 
   // Account endpoints
   app.get('/account/profile', AccountController.profile);
